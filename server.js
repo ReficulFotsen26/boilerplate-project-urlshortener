@@ -12,7 +12,7 @@ var app = express();
 var port = process.env.PORT || 3000;
 
 /** this project needs a db !! **/ 
-// mongoose.connect(process.env.DB_URI);
+ mongoose.connect(process.env.DB_URI);
 
 app.use(cors());
 
@@ -27,7 +27,7 @@ app.get('/', function(req, res){
 
   
 // your first API endpoint... 
-app.get("/api/hello", function (req, res) {
+app.post("/api/shorturl/new", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
