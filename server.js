@@ -17,6 +17,7 @@ var port = process.env.PORT || 3000;
 app.use(cors());
 
 /** this project needs to parse POST bodies **/
+var bodyParser = require("body-parser");
 // you should mount the body-parser here
 
 app.use('/public', express.static(process.cwd() + '/public'));
