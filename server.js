@@ -33,9 +33,26 @@ app.post("/api/shorturl/new", function (req, res) {
   var urlRegex = /[-a-zA-Z)0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\.~#?&//=]*)/gi;
   
   if(urlRegex.test(urlToShorten) === true) {
-    return res.json({urlToShorten});
+    var short = math.floor(Math.random()*100000).toString();
+
+    var data = new shortUrl(
+      {
+          originalUrl: urlToShorten,
+          shortUrl: short
+      }
+    );
+    data.save(err=>{
+      if (err){
+        return res.send("Error saving to database");
+      }
+    });
+    return res.json({data});
   } 
-  return res.json({urlToShorten: "failed"});
+  var data = new shortUrl({
+    originalUrl: "the url given doesn't match the http format",
+    shorterUrl: "InvalidUrl"
+  })
+  return res.json(data);
 });
 
 
