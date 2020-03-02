@@ -5,6 +5,7 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var cors = require('cors');
 var app = express();
+var shortUrl = require('shortUrl');
 //var dns = require('dns');
 
 // Basic Configuration 
@@ -12,7 +13,6 @@ var port = process.env.PORT || 3000;
 
 /** this project needs a db !! **/ 
 mongoose.connect(process.env.DB_URI);
-var Schema = mongoose.Schema()
 
 app.use(cors());
 
