@@ -46,7 +46,7 @@ app.post("/api/shorturl/new", function (req, res) {
         return res.send("Error saving to database");
       }
     });
-    return res.json({data});
+    return res.json(data);
   } 
   var data = new shortUrl({
     originalUrl: "the url given doesn't match the http format",
@@ -55,7 +55,22 @@ app.post("/api/shorturl/new", function (req, res) {
   return res.json(data);
 });
 
+app.get("/api/shorturl/new", (req, res, next) => {
+  var shorterUrl = req.params.urlToForward;
 
+  shortUrl.findOne({'shorterUrl': shorterUrl}, (err, data) => {
+    if(err)
+      return res.send('Error');
+      var regex = new RegExp("^(http|https)://", "i");
+      var strToCheck = data.originalUrl;
+      if(regex.test(strToCheck)){
+        res.redirect(301, data.originalUrl);
+      } else{
+        res.redirect(301,"http//" + originalUrl)
+      }
+    }
+  );
+});
 app.listen(port, function () {
   console.log('Node.js listening ...');
 });
