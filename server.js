@@ -12,7 +12,7 @@ var shortUrl = require('shortUrl');
 var port = process.env.PORT || 3000;
 
 /** this project needs a db !! **/ 
-mongoose.connect(process.env.DB_URI);
+mongoose.connect(process.env.DB_URI || "monogodb://localhost/shortUrls");
 
 app.use(cors());
 
@@ -29,7 +29,13 @@ app.get('/', function(req, res){
   
 // your first API endpoint... 
 app.post("/api/shorturl/new", function (req, res) {
+  var { urlToShorten } = req.params;
+  var urlRegex = /[-a-zA-Z)0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\.~#?&//=]*)/gi;
   
+  if(urlRegex.test(urlToShorten) === true) {
+    return res.json({urlToShorten});
+  } 
+  return res.json({urlToShorten: "failed"});
 });
 
 
