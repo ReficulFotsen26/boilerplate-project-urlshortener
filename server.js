@@ -5,6 +5,7 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var cors = require('cors');
 var app = express();
+//var dns = require('dns');
 
 // Basic Configuration 
 var port = process.env.PORT || 3000;
@@ -28,7 +29,7 @@ app.get('/', function(req, res){
   
 // your first API endpoint... 
 app.post("/api/shorturl/new", function (req, res) {
-  res.json({greeting: 'hello API'});
+  
 });
 
 
